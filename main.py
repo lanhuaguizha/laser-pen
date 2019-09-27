@@ -5,15 +5,17 @@ import pyHook
 import pythoncom
 import win32api
 
-programs = ['chrome.exe', 'notepad.exe', 'notepad.exe']
-a = len(programs) -1
+programs = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "StormPlayer9.exe"]
+a = len(programs) - 1
+
 
 # 会按着index:2, 1, 0, 2, 1...循环打开programs里的程序
 def openProgrames(index):
     try:
         os.system("taskkill /F /IM %s" % programs[index])
-    finally:
         win32api.ShellExecute(1, 'open', '%s' % programs[index], '', '', 1)
+    except:
+        pass
     pass
 
 
