@@ -6,15 +6,21 @@ import PyHook3
 import pythoncom
 import win32api
 
-programs = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "chrome.exe"]
-a = len(programs) - 1
+programsToOpen = ["D:\\yongqiang\\bulid\\multi_mask.exe", "AR-Dinosaur-adjust.exe", "C:\\Users\\yongqiangtao\\1.mp4"]
+programsToClose = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "Video.UI.exe"]
+a = len(programsToClose) - 1
 
 
 # 会按着index:2, 1, 0, 2, 1...循环打开programs里的程序
 def openProgrames(index):
     try:
-        os.system("taskkill /F /IM %s" % programs[index])
-        win32api.ShellExecute(1, 'open', '%s' % programs[index], '', '', 1)
+        # 结尾2的时候是一个特殊情况，需要关闭的不是index = 3，而是首个程序
+        if index+1 < len(programsToClose):
+            os.system("taskkill /F /IM %s" % programsToClose[index+1])
+        else:
+            os.system("taskkill /F /IM %s" % programsToClose[0])
+
+        win32api.ShellExecute(1, 'open', '%s' % programsToOpen[index], '', '', 1)
     except:
         pass
     pass
@@ -26,7 +32,7 @@ def dispatchUpKeyEvent():
     openProgrames(a)
     a -= 1
     if a < 0:
-        a = len(programs) - 1
+        a = len(programsToClose) - 1
     pass
 
 
