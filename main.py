@@ -1,11 +1,12 @@
+# coding:utf-8
 import os
 import sys
 
-import pyHook
+import PyHook3
 import pythoncom
 import win32api
 
-programs = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "StormPlayer9.exe"]
+programs = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "chrome.exe"]
 a = len(programs) - 1
 
 
@@ -53,7 +54,7 @@ def onKeyboardEvent(event):
 
 def main():
     # 创建一个：钩子“管理对象
-    hm = pyHook.HookManager()
+    hm = PyHook3.HookManager()
     # 监听所有的键盘事件
     hm.KeyDown = onKeyboardEvent
     # 设置键盘”钩子“
