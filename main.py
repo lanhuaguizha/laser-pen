@@ -1,13 +1,17 @@
 # coding:utf-8
 import os
-import sys
 
 import PyHook3
+import pyautogui
 import pythoncom
 import win32api
+from pymouse import *
+from win32con import SW_SHOWMAXIMIZED
 
-programsToOpen = ["D:\\yongqiang\\bulid\\multi_mask.exe", "AR-Dinosaur-adjust.exe", "C:\\Users\\yongqiangtao\\1.mp4"]
-programsToClose = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "Video.UI.exe"]
+# programsToOpen = ["D:\\bulid\\multi_mask.exe", "D:\\AR恐龙可调上下位置\\AR-Dinosaur-adjust.exe",
+#                   "C:\\Users\\daping\\Desktop\\企业宣传片.mp4", "C:\\Users\\yongqiangtao\\Desktop\\屏保.png"]
+programsToOpen = ["D:\\bulid\\multi_mask.exe", "D:\\AR恐龙可调上下位置\\AR-Dinosaur-adjust.exe", "C:\\Users\\daping\\Desktop\\企业宣传片.mp4", "C:\\Users\\daping\\Desktop\\屏保.jpg"]
+programsToClose = ["multi_mask.exe", "AR-Dinosaur-adjust.exe", "Video.UI.exe", "Microsoft.Photos.exe"]
 a = len(programsToClose) - 1
 
 
@@ -15,12 +19,12 @@ a = len(programsToClose) - 1
 def openProgrames(index):
     try:
         # 结尾2的时候是一个特殊情况，需要关闭的不是index = 3，而是首个程序
-        if index+1 < len(programsToClose):
-            os.system("taskkill /F /IM %s" % programsToClose[index+1])
+        if index + 1 < len(programsToClose):
+            os.system("taskkill /F /IM %s" % programsToClose[index + 1])
         else:
             os.system("taskkill /F /IM %s" % programsToClose[0])
 
-        win32api.ShellExecute(1, 'open', '%s' % programsToOpen[index], '', '', 1)
+        win32api.ShellExecute(1, 'open', '%s' % programsToOpen[index], '', '', SW_SHOWMAXIMIZED)
     except:
         pass
     pass
@@ -38,12 +42,15 @@ def dispatchUpKeyEvent():
 
 # 激光笔下键逻辑
 def dispatchDownKeyEvent():
+    m = PyMouse()
+    x_dim, y_dim = m.screen_size()
+    pyautogui.click(x_dim // 2, y_dim // 2)
     pass
 
 
 # 激光笔Tab键逻辑：结束本脚本程序，结束激光笔监听
 def dispatchTabKeyEvent():
-    sys.exit()
+    # sys.exit()
     pass
 
 
